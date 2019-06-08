@@ -1,13 +1,14 @@
 from setuptools import find_packages, setup
 
-with open("README.md", "r", encoding="utf-8") as fh:
+with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
 setup(
     name='melisdk',
-    version="0.0.1",
-    description="A stupid copy of MercadoLibre python SDK, but works",
+    version="0.1.1",
+    description='A copy of MercadoLibre python SDK, but works',
     long_description=long_description,
+    long_description_content_type="text/markdown",
     author="Daniel Omar Vergara Pérez",
     packages=find_packages(exclude=("tests",)),
     author_email="daniel.omar.vergara@gmail.com",

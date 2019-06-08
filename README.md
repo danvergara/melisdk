@@ -1,7 +1,8 @@
-# MercadoLibre's Python SDK
+# melisdk (MercadoLibre's Python SDK)
 
 This is not the official Python SDK for MercadoLibre's Platform, but works. And you cant install it from PYPI.
 
+[![PyPI version](https://badge.fury.io/py/melisdk.svg)](https://badge.fury.io/py/melisdk)
 
 ## How do I install it?
 

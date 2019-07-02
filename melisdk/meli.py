@@ -1,35 +1,32 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from configparser import ConfigParser
 import logging
 from urllib import parse
 import json
-import os
 import re
 import ssl
 
 import requests
 
 from .ssl_helper import SSLAdapter
+from .config import CONFIG, AUTH_URL_DICT
 
 logging.basicConfig(level=logging.INFO)
 
 
 class Meli:
     def __init__(self, client_id, client_secret,
-                 access_token=None, refresh_token=None):
+                 access_token=None, refresh_token=None, auth_url_key='MXN'):
         self.client_id = client_id
         self.client_secret = client_secret
         self.access_token = access_token
         self.refresh_token = refresh_token
         self.expires_in = None
-
-        parser = ConfigParser()
-        parser.read(os.path.dirname(os.path.abspath(__file__))+'/config.ini')
+        self.auth_url_key = auth_url_key
 
         self._requests = requests.Session()
         try:
-            self.SSL_VERSION = parser.get('config', 'ssl_version')
+            self.SSL_VERSION = CONFIG.get('ssl_version')
             self._requests.mount(
                 'https://', SSLAdapter(ssl_version=getattr(ssl,
                                                            self.SSL_VERSION)))
@@ -37,10 +34,10 @@ class Meli:
             logging.warning(e)
             self._requests = requests
 
-        self.API_ROOT_URL = parser.get('config', 'api_root_url')
-        self.SDK_VERSION = parser.get('config', 'sdk_version')
-        self.AUTH_URL = parser.get('config', 'auth_url')
-        self.OAUTH_URL = parser.get('config', 'oauth_url')
+        self.API_ROOT_URL = CONFIG.get('api_root_url')
+        self.SDK_VERSION = CONFIG.get('sdk_version')
+        self.AUTH_URL = AUTH_URL_DICT.get(self.auth_url_key)
+        self.OAUTH_URL = CONFIG.get('oauth_url')
 
     # AUTH METHODS
     def auth_url(self, redirect_URI):

@@ -37,7 +37,7 @@ class Meli:
         self.API_ROOT_URL = CONFIG.get('api_root_url')
         self.SDK_VERSION = CONFIG.get('sdk_version')
         self.AUTH_URL = AUTH_URL_DICT.get(self.auth_url_key)
-        self.OAUTH_URL = CONFIG.get('config', 'oauth_url')
+        self.OAUTH_URL = CONFIG.get('oauth_url')
 
     # AUTH METHODS
     def auth_url(self, redirect_URI):

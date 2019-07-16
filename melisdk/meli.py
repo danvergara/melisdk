@@ -100,7 +100,7 @@ class Meli:
             raise Exception("Offline-Access is not allowed.")
 
     # REQUEST METHODS
-    def get(self, path, params=None, extra_headers=None):
+    def get(self, path, params=None, extra_headers=None, **kwargs):
         params = params or {}
         headers = {'Accept': 'application/json',
                    'User-Agent': self.SDK_VERSION,
@@ -109,10 +109,10 @@ class Meli:
             headers.update(extra_headers)
         uri = self.make_path(path)
         response = self._requests.get(uri, params=parse.urlencode(params),
-                                      headers=headers)
+                                      headers=headers, **kwargs)
         return response
 
-    def post(self, path, body=None, params=None, extra_headers=None):
+    def post(self, path, body=None, params=None, extra_headers=None, **kwargs):
         params = params or {}
         headers = {'Accept': 'application/json',
                    'User-Agent': self.SDK_VERSION,
@@ -124,10 +124,11 @@ class Meli:
             body = json.dumps(body)
 
         response = self._requests.post(
-            uri, data=body, params=parse.urlencode(params), headers=headers)
+            uri, data=body, params=parse.urlencode(params), headers=headers,
+            **kwargs)
         return response
 
-    def put(self, path, body=None, params=None, extra_headers=None):
+    def put(self, path, body=None, params=None, extra_headers=None, **kwargs):
         params = params or {}
         headers = {'Accept': 'application/json',
                    'User-Agent': self.SDK_VERSION,
@@ -139,10 +140,11 @@ class Meli:
             body = json.dumps(body)
 
         response = self._requests.put(
-            uri, data=body, params=parse.urlencode(params), headers=headers)
+            uri, data=body, params=parse.urlencode(params), headers=headers,
+            **kwargs)
         return response
 
-    def delete(self, path, params=None, extra_headers=None):
+    def delete(self, path, params=None, extra_headers=None, **kwargs):
         params = params or {}
         headers = {'Accept': 'application/json',
                    'User-Agent': self.SDK_VERSION,
@@ -150,10 +152,11 @@ class Meli:
         if extra_headers:
             headers.update(extra_headers)
         uri = self.make_path(path)
-        response = self._requests.delete(uri, params=params, headers=headers)
+        response = self._requests.delete(uri, params=params, headers=headers,
+                                         **kwargs)
         return response
 
-    def options(self, path, params=None, extra_headers=None):
+    def options(self, path, params=None, extra_headers=None, **kwargs):
         params = params or {}
         headers = {'Accept': 'application/json',
                    'User-Agent': self.SDK_VERSION,
@@ -162,7 +165,7 @@ class Meli:
             headers.update(extra_headers)
         uri = self.make_path(path)
         response = self._requests.options(uri, params=parse.urlencode(params),
-                                          headers=headers)
+                                          headers=headers, **kwargs)
         return response
 
     def make_path(self, path, params=None):

@@ -50,7 +50,7 @@ class MeliTest(unittest.TestCase):
     @patch('melisdk.meli.Meli.get')
     def testGet(self, meli_get):
         meli_get.return_value.status_code = 200
-        response = self.meli.get(path="/items/test1")
+        response = self.meli.get(path="/items/test1", timeout=5)
         self.assertEqual(response.status_code, requests.codes.ok)
 
     @patch('melisdk.meli.Meli.post')
@@ -77,7 +77,7 @@ class MeliTest(unittest.TestCase):
         meli_put.return_value.status_code = 200
         response = self.meli.put(
             path="/items/test1", body=body,
-            params={'access_token': self.meli.access_token})
+            params={'access_token': self.meli.access_token}, timeout=5)
         self.assertEqual(response.status_code, requests.codes.ok)
 
     @patch('melisdk.meli.Meli.delete')
@@ -85,7 +85,7 @@ class MeliTest(unittest.TestCase):
         meli_delete.return_value.status_code = 200
         response = self.meli.delete(
             path="/questions/123",
-            params={'access_token': self.meli.access_token})
+            params={'access_token': self.meli.access_token}, timeout=5)
         self.assertEqual(response.status_code, requests.codes.ok)
 
     @patch('melisdk.meli.Meli.get')
